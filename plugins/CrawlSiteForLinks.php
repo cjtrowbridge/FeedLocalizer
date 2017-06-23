@@ -4,11 +4,38 @@ function CrawlSiteForLinks($URL,$Depth = 5,$Pattern = false){
   global $CrawlSiteLinks;
   $CrawlSiteLinks=array();
   
-  crawl_page_recursive($URL, $Depth,$Pattern);
+  crawl_page_recursive2($URL, $Depth,$Pattern);
   
   $Temp = $CrawlSiteLinks;
   unset($CrawlSiteLinks);
   return $Temp;
+}
+
+function CrawlSiteForLinks($URL,$Depth = 5, $Pattern = false){
+  $Page = CacheURL($URL);
+  preg_match('/href=(["\'])([^\1]*)\1/i', $Page, $Links);
+  
+  foreach($Links as $Link){
+    if($Pattern){
+      if(strpos($Link,$Pattern)===false){
+        continue;
+      }
+    }
+    
+    if(susbtr($Link,0,1)=='/'){
+      $Link = $URL.$Link;
+      $Link = str_replace('//',''/',$Link);
+    }
+    
+    global $CrawlSiteLinks;
+    $CrawlSiteLinks[$Link]=$Link;
+    
+    if($Depth>0){
+      //check if internal link
+      echo 'need to recurse: '.$Link;
+    }
+    
+  }
 }
 
 function crawl_page_recursive($url, $depth = 5,$Pattern = false){
