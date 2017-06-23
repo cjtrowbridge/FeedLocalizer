@@ -9,6 +9,9 @@ function CacheURL($URL,$TTL = 3600){
   }
   
   $Data = file_get_contents($URL);
+  if($Data==false){
+    die('Failed to fetch '.$URL);
+  }
   file_put_contents($Path,$Data);
   return $Data;
 }
