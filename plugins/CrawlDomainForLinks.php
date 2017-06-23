@@ -25,9 +25,7 @@ function CrawlDomainForLinksRecurse($URL,$Depth = 5, $Pattern = false){
       continue;
     }
     $Delimiter = substr($Link,0,1);
-    if(!(
-      $Delimiter=='"'||$Delimiter=="'"
-    )){
+    if(!($Delimiter=='"'||$Delimiter=="'")){
       //RUH ROH
       echo '<p>idk what to do with this: '.$Link.'</p>';
       continue;
