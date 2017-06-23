@@ -1,19 +1,23 @@
 <?php
 
 function CrawlDomainForLinks($URL,$Depth = 5,$Pattern = false){
-  global $CrawlSiteLinks;
-  $CrawlSiteLinks=array();
+  global $CrawlSiteLinks,$CrawledAlready;
+  $CrawlSiteLinks = array();
+  $CrawledAlready = array();
   
   CrawlDomainForLinksRecurse($URL, $Depth,$Pattern);
   
-  $Temp = $CrawlSiteLinks;
-  unset($CrawlSiteLinks);
-  return $Temp;
+  unset($CrawledAlready);
+  return $CrawlSiteLinks;
 }
 
 function CrawlDomainForLinksRecurse($URL,$Depth = 5, $Pattern = false){
+  if($CrawledAlready[$URL]==$URL){
+    return;
+  }
+  $CrawledAlready[$URL]=$URL;
+  
   $Page = CacheURL($URL);
-  //preg_match('/href=(["\'])([^\1]*)\1/i', $Page, $Links);
   
   $Exploded = explode('href=',$Page);
   
@@ -21,9 +25,8 @@ function CrawlDomainForLinksRecurse($URL,$Depth = 5, $Pattern = false){
   $Links = array();
   
   foreach($Exploded as $Link){
-    if(trim($Link)==''){
-      continue;
-    }
+    if(trim($Link)==''){continue;}
+    
     $Delimiter = substr($Link,0,1);
     if(!($Delimiter=='"'||$Delimiter=="'")){
       //RUH ROH
@@ -34,7 +37,10 @@ function CrawlDomainForLinksRecurse($URL,$Depth = 5, $Pattern = false){
     $Link = substr($Link,1);
     $Length = strpos($Link,$Delimiter);
     $Link = substr($Link,0,$Length);
-    $Links[$Link]=$Link;
+    
+    global CrawlSiteLinks;
+    $CrawlSiteLinks[$Link]=$Link;
+    
     
   }
 }
