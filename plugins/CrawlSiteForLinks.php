@@ -15,13 +15,14 @@ function CrawlSiteForLinksRecurse($URL,$Depth = 5, $Pattern = false){
   $Page = CacheURL($URL);
   //preg_match('/href=(["\'])([^\1]*)\1/i', $Page, $Links);
   
-  $Links = explode('href=',$Page);
+  $Exploded = explode('href=',$Page);
   
-  unset($Links[0]);
+  unset($Exploded[0]);
+  $Links = array();
   
-  foreach($Links as $Key => &$Link){
+  foreach($Exploded as $Key => &$Link){
     if(trim($Link)==''){
-      unset($Links[$Key]);
+      unset($Exploded[$Key]);
       continue;
     }
     $Delimiter = substr($Link,0,1);
@@ -29,15 +30,15 @@ function CrawlSiteForLinksRecurse($URL,$Depth = 5, $Pattern = false){
       $Link = substr($Link,1);
       $Length = strpos($Link,'"');
       $Link = substr($Link,0,$Length);
-
+      $Links[$Link]=$Link;
     }elseif($Delimiter=="'"){
       $Link = substr($Link,1);
       $Length = strpos($Link,"'");
       $Link = substr($Link,0,$Length);
-
+      $Links[$Link]=$Link;
     }else{
       //RUH ROH
-      die('idk what to do with this: '.$Link);
+      echo '<p>idk what to do with this: '.$Link.'</p>';
     }
   }
   pd($Links);
