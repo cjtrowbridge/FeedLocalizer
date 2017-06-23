@@ -16,23 +16,26 @@ function CrawlSiteForLinksRecurse($URL,$Depth = 5, $Pattern = false){
   //preg_match('/href=(["\'])([^\1]*)\1/i', $Page, $Links);
   
   $Links = explode('href=',$Page);
-  foreach($Links as &$Link){
+  foreach($Links as $Key => &$Link){
+    if(trim($Link)==''){
+      unset($Links[$Key]);
+      continue;
+    }
     $Delimiter = substr($Link,0,1);
     if($Delimiter=='"'){
       $Link = substr($Link,1);
       $Length = strpos($Link,'"');
       $Link = susbtr($Link,0,$Length);
-      
+
     }elseif($Delimiter=="'"){
       $Link = substr($Link,1);
       $Length = strpos($Link,"'");
       $Link = susbtr($Link,0,$Length);
-      
+
     }else{
       //RUH ROH
       die('idk what to do with this: '.$Link);
     }
-    
   }
   pd($Links);
   
