@@ -38,7 +38,7 @@ function CrawlDomainForLinksRecurse($URL,$Depth = 5, $Pattern = false){
     $Length = strpos($Link,$Delimiter);
     $Link = substr($Link,0,$Length);
     
-    global CrawlSiteLinks;
+    global $CrawlSiteLinks;
     $CrawlSiteLinks[$Link]=$Link;
     
     
