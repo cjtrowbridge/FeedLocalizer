@@ -18,7 +18,10 @@ function CrawlSiteForLinksRecurse($URL,$Depth = 5, $Pattern = false){
   $re = '/\href=(["\'])(.*?)\1/';
   preg_match_all($re, $Page, $Links, PREG_SET_ORDER, 0);
   
-  pd($Links);exit;
+  pd($Links);
+  
+  pd($Page);
+  exit;
   
   foreach($Links as $Link){
     if($Pattern){
