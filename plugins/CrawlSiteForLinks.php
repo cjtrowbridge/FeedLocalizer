@@ -1,17 +1,17 @@
 <?php
 
-function CrawlSiteForLinks($URL,$Depth = 5){
+function CrawlSiteForLinks($URL,$Depth = 5,$Pattern = false){
   global $CrawlSiteLinks;
   $CrawlSiteLinks=array();
   
-  crawl_page_recursive($URL, $Depth);
+  crawl_page_recursive($URL, $Depth,$Pattern);
   
   $Temp = $CrawlSiteLinks;
   unset($CrawlSiteLinks);
   return $Temp;
 }
 
-function crawl_page_recursive($url, $depth = 5){
+function crawl_page_recursive($url, $depth = 5,$Pattern){
   set_time_limit(0);
   $seen = array();
   if(($depth == 0) or (in_array($url, $seen))){
@@ -28,6 +28,11 @@ function crawl_page_recursive($url, $depth = 5){
       preg_match_all("/<a[\s]+[^>]*?href[\s]?=[\s\"\']+"."(.*?)[\"\']+.*?>"."([^<]+|.*?)?<\/a>/", $stripped_file, $matches, PREG_SET_ORDER ); 
       foreach($matches as $match){
           $href = $match[1];
+              if($Pattern){
+                if(false === strpos($href, $Pattern)){
+                  continue;
+                }
+              }
               if (0 !== strpos($href, 'http')) {
                   $path = '/' . ltrim($href, '/');
                   if (extension_loaded('http')) {
