@@ -7,7 +7,7 @@ include('plugins/Loader.php');
 Loader('plugins');
 
 $URL = $_GET['url'];
-$Links = CrawlSiteForLinks($URL);
+$Links = CrawlSiteForLinks($URL,2,'rss');
 pd($Links);
 exit;
 
