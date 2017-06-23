@@ -24,7 +24,7 @@ function CrawlSiteForLinks($URL,$Depth = 5, $Pattern = false){
     
     if(susbtr($Link,0,1)=='/'){
       $Link = $URL.$Link;
-      $Link = str_replace('//',''/',$Link);
+      $Link = str_replace('//','/',$Link);
     }
     
     global $CrawlSiteLinks;
