@@ -17,7 +17,7 @@ function CrawlDomainForLinksRecurse($URL,$Depth = 5, $BaseURL = ''){
   }
   
   global $CrawledAlready;
-  if($CrawledAlready[$URL]==$URL){
+  if(isset($CrawledAlready[$URL])){
     return;
   }
   $CrawledAlready[$URL]=$URL;
