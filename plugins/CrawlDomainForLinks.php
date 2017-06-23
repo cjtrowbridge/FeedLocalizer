@@ -5,7 +5,7 @@ function CrawlDomainForLinks($URL,$Depth = 5){
   $CrawlSiteLinks = array();
   $CrawledAlready = array();
   
-  CrawlDomainForLinksRecurse($URL, $Depth,$Pattern);
+  CrawlDomainForLinksRecurse($URL, $Depth);
   
   unset($CrawledAlready);
   return $CrawlSiteLinks;
