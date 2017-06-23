@@ -41,10 +41,12 @@ function CrawlDomainForLinksRecurse($URL,$Depth = 5, $Pattern = false, $BaseURL 
     $Length = strpos($Link,$Delimiter);
     $Link = substr($Link,0,$Length);
     
-    $Link = $BaseURL.'/'.$Link;
-    $Link = str_replace('//','/',$Link);
-    $Link = str_replace('//','/',$Link);
-    $Link = str_replace('//','/',$Link);
+    if(substr($Link,0,1)=='/'){
+      $Link = $BaseURL.'/'.$Link;
+      $Link = str_replace('//','/',$Link);
+      $Link = str_replace('//','/',$Link);
+      $Link = str_replace('//','/',$Link);
+    }
     
     global $CrawlSiteLinks;
     $CrawlSiteLinks[$Link]=$Link;
