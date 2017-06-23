@@ -20,9 +20,8 @@ function CrawlDomainForLinksRecurse($URL,$Depth = 5, $Pattern = false){
   unset($Exploded[0]);
   $Links = array();
   
-  foreach($Exploded as $Key => &$Link){
+  foreach($Exploded as $Link){
     if(trim($Link)==''){
-      unset($Exploded[$Key]);
       continue;
     }
     $Delimiter = substr($Link,0,1);
