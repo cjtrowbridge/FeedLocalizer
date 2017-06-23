@@ -4,14 +4,14 @@ function CrawlSiteForLinks($URL,$Depth = 5,$Pattern = false){
   global $CrawlSiteLinks;
   $CrawlSiteLinks=array();
   
-  crawl_page_recursive2($URL, $Depth,$Pattern);
+  CrawlSiteForLinksRecurse($URL, $Depth,$Pattern);
   
   $Temp = $CrawlSiteLinks;
   unset($CrawlSiteLinks);
   return $Temp;
 }
 
-function CrawlSiteForLinks($URL,$Depth = 5, $Pattern = false){
+function CrawlSiteForLinksRecurse($URL,$Depth = 5, $Pattern = false){
   $Page = CacheURL($URL);
   preg_match('/href=(["\'])([^\1]*)\1/i', $Page, $Links);
   
