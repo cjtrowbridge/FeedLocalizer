@@ -11,7 +11,10 @@ function CrawlDomainForLinks($URL,$Depth = 5,$Pattern = false){
   return $CrawlSiteLinks;
 }
 
-function CrawlDomainForLinksRecurse($URL,$Depth = 5, $Pattern = false){
+function CrawlDomainForLinksRecurse($URL,$Depth = 5, $Pattern = false, $BaseURL = ''){
+  if($BaseURL==''){
+    $BaseURL=$URL;
+  }
   if($CrawledAlready[$URL]==$URL){
     return;
   }
@@ -38,9 +41,15 @@ function CrawlDomainForLinksRecurse($URL,$Depth = 5, $Pattern = false){
     $Length = strpos($Link,$Delimiter);
     $Link = substr($Link,0,$Length);
     
+    $Link = $BaseURL.'/'.$Link;
+    $Link = str_replace('//','/',$Link);
+    $Link = str_replace('//','/',$Link);
+    $Link = str_replace('//','/',$Link);
+    
     global $CrawlSiteLinks;
     $CrawlSiteLinks[$Link]=$Link;
     
-    
+    //CrawlDomainForLinksRecurse($Link,$Depth-1,$Pattern,$BaseURL);
+      
   }
 }
