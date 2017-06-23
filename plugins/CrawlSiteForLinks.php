@@ -33,7 +33,7 @@ function CrawlSiteForLinksRecurse($URL,$Depth = 5, $Pattern = false){
     }elseif($Delimiter=="'"){
       $Link = substr($Link,1);
       $Length = strpos($Link,"'");
-      $Link = susbtr($Link,0,$Length);
+      $Link = substr($Link,0,$Length);
 
     }else{
       //RUH ROH
