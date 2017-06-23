@@ -16,6 +16,9 @@ function CrawlSiteForLinksRecurse($URL,$Depth = 5, $Pattern = false){
   //preg_match('/href=(["\'])([^\1]*)\1/i', $Page, $Links);
   
   $Links = explode('href=',$Page);
+  
+  unset($Links[0]);
+  
   foreach($Links as $Key => &$Link){
     if(trim($Link)==''){
       unset($Links[$Key]);
