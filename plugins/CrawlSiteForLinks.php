@@ -14,7 +14,10 @@ function CrawlSiteForLinks($URL,$Depth = 5,$Pattern = false){
 function CrawlSiteForLinksRecurse($URL,$Depth = 5, $Pattern = false){
   $Page = CacheURL($URL);
   //preg_match('/href=(["\'])([^\1]*)\1/i', $Page, $Links);
-  preg_match('\href=(["\'])(.*?)\1', $Page, $Links);
+  
+  $re = '/\href=(["\'])(.*?)\1/';
+  preg_match_all($re, $Page, $Links, PREG_SET_ORDER, 0);
+  
   pd($Links);exit;
   
   foreach($Links as $Link){
