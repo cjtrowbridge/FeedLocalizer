@@ -28,10 +28,10 @@ function CrawlSiteForLinksRecurse($URL,$Depth = 5, $Pattern = false){
       $Length = strpos($Link,"'");
       $Link = susbtr($Link,0,$Length);
       
-    }else(
+    }else{
       //RUH ROH
       die('idk what to do with this: '.$Link);
-    )
+    }
     
   }
   pd($Links);
