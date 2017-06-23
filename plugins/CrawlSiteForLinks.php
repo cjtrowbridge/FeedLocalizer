@@ -11,7 +11,7 @@ function CrawlSiteForLinks($URL,$Depth = 5,$Pattern = false){
   return $Temp;
 }
 
-function crawl_page_recursive($url, $depth = 5,$Pattern){
+function crawl_page_recursive($url, $depth = 5,$Pattern = false){
   set_time_limit(0);
   $seen = array();
   if(($depth == 0) or (in_array($url, $seen))){
@@ -27,6 +27,8 @@ function crawl_page_recursive($url, $depth = 5,$Pattern){
       $stripped_file = strip_tags($result, "<a>");
       preg_match_all("/<a[\s]+[^>]*?href[\s]?=[\s\"\']+"."(.*?)[\"\']+.*?>"."([^<]+|.*?)?<\/a>/", $stripped_file, $matches, PREG_SET_ORDER ); 
       foreach($matches as $match){
+        pd($match);
+        continue;
           $href = $match[1];
               if($Pattern){
                 if(false === strpos($href, $Pattern)){
