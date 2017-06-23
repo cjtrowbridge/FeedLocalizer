@@ -1,6 +1,6 @@
 <?php
 
-function CrawlDomainForLinks($URL,$Depth = 5,$Pattern = false){
+function CrawlDomainForLinks($URL,$Depth = 5){
   global $CrawlSiteLinks,$CrawledAlready;
   $CrawlSiteLinks = array();
   $CrawledAlready = array();
@@ -11,7 +11,7 @@ function CrawlDomainForLinks($URL,$Depth = 5,$Pattern = false){
   return $CrawlSiteLinks;
 }
 
-function CrawlDomainForLinksRecurse($URL,$Depth = 5, $Pattern = false, $BaseURL = ''){
+function CrawlDomainForLinksRecurse($URL,$Depth = 5, $BaseURL = ''){
   if($BaseURL==''){
     $BaseURL=$URL;
   }
@@ -51,7 +51,7 @@ function CrawlDomainForLinksRecurse($URL,$Depth = 5, $Pattern = false, $BaseURL 
     global $CrawlSiteLinks;
     $CrawlSiteLinks[$Link]=$Link;
     
-    //CrawlDomainForLinksRecurse($Link,$Depth-1,$Pattern,$BaseURL);
+    CrawlDomainForLinksRecurse($Link,$Depth-1,$BaseURL);
       
   }
 }
