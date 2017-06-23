@@ -5,6 +5,12 @@ ini_set('display_errors', '1');
 
 include('plugins/Loader.php');
 Loader('plugins');
+
+$URL = $_GET['url'];
+$Links = CrawlSiteForLinks($URL);
+pd($Links);
+exit;
+
 Loader('api/v1');
 
 Event('Fetch');
